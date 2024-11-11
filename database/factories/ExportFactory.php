@@ -23,7 +23,7 @@ class ExportFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => Product::factory(),
+            'product_id' => Product::inRandomOrder()->first(),
             'quantity' => $this->faker->numberBetween(1, 10000),
             'exp_date' => $this->faker->date(),
             'exporter_id' => Exporter::inRandomOrder()->first(),
