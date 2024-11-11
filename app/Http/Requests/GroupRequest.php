@@ -25,7 +25,8 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => ['required','string','max:255','unique:table,groups,'.$this->id],
+            'code' => ['required','string','regex:/^G\d{5}$/','unique:table,groups,'.$this->id],
         ];
     }
 
@@ -49,7 +50,7 @@ class GroupRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            "code.regex"=>'يجب أن يبدأ الرمز بالحرف G وبعده 5 أرقام',
         ];
     }
 }

@@ -25,7 +25,10 @@ class ImporterRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'first_name' => ['required','string','max:255',Rule::unique('exporters')->where('first_name',$this->first_name)->where('last_name',$this->last_name)->ignore($this->id)], 
+            'last_name' => ['required','string','max:255',Rule::unique('exporters')->where('first_name',$this->first_name)->where('last_name',$this->last_name)->ignore($this->id)],
+            'phone_number'=> ['required','string','regex:/^\+?[1-9]\d{1,14}$/','unique:Exporters,phone_number,'.$this->id],
+            'email' => ['required','email','unique:Exporters,email,'.$this->id]
         ];
     }
 
@@ -37,7 +40,9 @@ class ImporterRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            "first_name.unique" => "هذا المورد (اسم وكنية) موجود مسبقا",
+            "last_name.unique" => "هذا المورد (اسم وكنية) موجود مسبقا",
+            'phone_number.regex' => 'الرجاء إدخال الرقم بالترميز العالمي E165'
         ];
     }
 

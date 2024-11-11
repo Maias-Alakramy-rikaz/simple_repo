@@ -25,7 +25,12 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => ['required','string','max:255','unique:table,products,'.$this->id],
+            'code' => ['required','string','regex:/^P\d{5}$/','unique:table,products,'.$this->id],
+            'min_quan' => ['required','numeric','min:1'],
+            'price' => ['required','numeric','min:1'],
+            'activated' => ['required','boolean'],
+            'group_id' => ['required','numeric','exists:groups,id'],
         ];
     }
 
@@ -49,7 +54,7 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            "code.regex"=>'يجب أن يبدأ الرمز بالحرف P وبعده 5 أرقام',
         ];
     }
 }

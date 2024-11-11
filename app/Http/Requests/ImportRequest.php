@@ -25,7 +25,10 @@ class ImportRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'product_id' => 'required|numeric|exists:products,id',
+            'quantity' => 'required|numeric|min:1',
+            'imp_date' => 'required|date',
+            'importer_id' => 'required|numeric|exists:importers,id'
         ];
     }
 
