@@ -28,7 +28,7 @@ class ImportCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Import::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/import');
-        CRUD::setEntityNameStrings('import', 'imports');
+        CRUD::setEntityNameStrings('وارد', 'واردات');
     }
 
     /**
@@ -40,6 +40,12 @@ class ImportCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
+        CRUD::removeColumn('product_id');
+        CRUD::column(['name'=>'Product','label'=>'المادة']);
+        CRUD::modifyColumn('quantity', ['label'=>'الكمية','suffix'=>' قطعة']);
+        CRUD::modifyColumn('imp_date', ['label'=>'التاريخ']);
+        CRUD::removeColumn('importer_id');
+        CRUD::column(['name'=>'Importer','label'=>'المورد','attribute'=>'full_name']);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -57,7 +63,11 @@ class ImportCrudController extends CrudController
     {
         CRUD::setValidation(ImportRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
-
+        CRUD::setFromDb(); // set fields from db columns.
+        CRUD::modifyField('product_id',['type'=>'select','model'=>'App\Models\Product','label'=>'المادة']);
+        CRUD::modifyField('quantity', ['label'=>'الكمية','suffix'=>' قطعة']);
+        CRUD::modifyField('imp_date', ['label'=>'التاريخ']);
+        CRUD::modifyField('importer_id',['type'=>'select','model'=>'App\Models\Importer','label'=>'المورد','attribute'=>'full_name']);
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

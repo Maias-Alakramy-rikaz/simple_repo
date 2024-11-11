@@ -28,7 +28,7 @@ class ProductCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Product::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/product');
-        CRUD::setEntityNameStrings('product', 'products');
+        CRUD::setEntityNameStrings('المادة', 'المواد');
     }
 
     /**
@@ -40,7 +40,14 @@ class ProductCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
-
+        CRUD::modifyColumn('name',['label'=>'الاسم']);
+        CRUD::modifyColumn('code', ['label'=>'الرمز']);
+        CRUD::modifyColumn('min_quan', ['label'=>'الحد الأدنى']);
+        CRUD::modifyColumn('price', ['label'=>'السعر']);
+        CRUD::modifyColumn('activated',['label'=>'مفعّلة']);
+        CRUD::removeColumn('group_id');
+        CRUD::column(['name'=>'Group','type'=>'select','model'=>'App\Models\Exporter','label'=>'الزبون','attribute'=>'full_name']);
+        
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
@@ -57,7 +64,12 @@ class ProductCrudController extends CrudController
     {
         CRUD::setValidation(ProductRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
-
+        CRUD::modifyField('name',['label'=>'الاسم']);
+        CRUD::modifyField('code', ['label'=>'الرمز']);
+        CRUD::modifyField('min_quan', ['label'=>'الحد الأدنى']);
+        CRUD::modifyField('price', ['label'=>'السعر']);
+        CRUD::modifyField('activated',['label'=>'مفعّلة','type'=>'hidden','value'=>true]);
+        CRUD::modifyField('group_id',['type'=>'select','model'=>'App\Models\Group','label'=>'المجموعة']);
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

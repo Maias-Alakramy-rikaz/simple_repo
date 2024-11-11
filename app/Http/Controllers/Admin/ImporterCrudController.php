@@ -28,7 +28,7 @@ class ImporterCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Importer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/importer');
-        CRUD::setEntityNameStrings('importer', 'importers');
+        CRUD::setEntityNameStrings('مورد', 'موردون');
     }
 
     /**
@@ -39,7 +39,10 @@ class ImporterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        // CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column(['name'=> 'full_name', 'label'=>'الاسم الكامل']);
+        CRUD::column(['name'=> 'phone_number', 'label'=>'رقم الهاتف']);
+        CRUD::column(['name'=> 'email', 'label'=>'البريد الإلكتروني']);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -57,7 +60,10 @@ class ImporterCrudController extends CrudController
     {
         CRUD::setValidation(ImporterRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
-
+        CRUD::modifyField('first_name', ['label'=>'الاسم']);
+        CRUD::modifyField('last_name', ['label'=>'الكنية']);
+        CRUD::modifyField('phone_number', ['label'=>'رقم الهانف']); 
+        CRUD::modifyField('email', ['label'=>'الإيميل']); 
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

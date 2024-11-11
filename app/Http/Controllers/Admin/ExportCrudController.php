@@ -28,7 +28,7 @@ class ExportCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Export::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/export');
-        CRUD::setEntityNameStrings('export', 'exports');
+        CRUD::setEntityNameStrings('صادر', 'صادرات');
     }
 
     /**
@@ -40,6 +40,13 @@ class ExportCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
+        CRUD::removeColumn('product_id');
+        CRUD::column(['name'=>'Product','label'=>'المادة']);
+        CRUD::modifyColumn('quantity', ['label'=>'الكمية','suffix'=>' قطعة']);
+        CRUD::modifyColumn('exp_date', ['label'=>'التاريخ']);
+        CRUD::removeColumn('exporter_id');
+        CRUD::column(['name'=>'Exporter','label'=>'الزبون','attribute'=>'full_name']);
+
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -57,7 +64,10 @@ class ExportCrudController extends CrudController
     {
         CRUD::setValidation(ExportRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
-
+        CRUD::modifyField('product_id',['type'=>'select','model'=>'App\Models\Product','label'=>'المادة']);
+        CRUD::modifyField('quantity', ['label'=>'الكمية','suffix'=>' قطعة']);
+        CRUD::modifyField('exp_date', ['label'=>'التاريخ']);
+        CRUD::modifyField('exporter_id',['type'=>'select','model'=>'App\Models\Exporter','label'=>'الزبون','attribute'=>'full_name']);
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

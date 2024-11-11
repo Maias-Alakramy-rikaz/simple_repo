@@ -28,7 +28,7 @@ class GroupCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Group::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/group');
-        CRUD::setEntityNameStrings('group', 'groups');
+        CRUD::setEntityNameStrings('مجموعة', 'مجموعات');
     }
 
     /**
@@ -40,7 +40,8 @@ class GroupCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
-
+        CRUD::modifyColumn('name', ['label'=>'الاسم']);
+        CRUD::modifyColumn('code', ['label'=>'الرمز']);
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
@@ -57,7 +58,8 @@ class GroupCrudController extends CrudController
     {
         CRUD::setValidation(GroupRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
-
+        CRUD::modifyField('name', ['label'=>'الاسم']);
+        CRUD::modifyField('code', ['label'=>'الرمز']);
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
