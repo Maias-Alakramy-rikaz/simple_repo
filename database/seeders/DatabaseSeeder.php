@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 
         Group::factory(3)->create();
         Product::factory(5)->create();
-        // ProductImage::factory(7)->create();
+        // ProductImage::factory(7)->create(); #TODO
 
         Exporter::factory(5)->create();
         Importer::factory(5)->create();
