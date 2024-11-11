@@ -21,9 +21,11 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $code = 'P'.$this->faker->numberBetween(10000, 99999);
+
         return [
             'name' => $this->faker->word(),
-            'code' => $this->faker->numberBetween(0, 10000),
+            'code' => $code,
             'min_quan' => $this->faker->numberBetween(1, 10000),
             'price' => $this->faker->numberBetween(500, 1000),
             'activated' => $this->faker->boolean(),

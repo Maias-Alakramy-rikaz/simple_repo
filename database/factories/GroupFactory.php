@@ -20,9 +20,10 @@ class GroupFactory extends Factory
      */
     public function definition(): array
     {
+        $code = 'G'.$this->faker->numberBetween(10000, 99999);
         return [
             'name' => $this->faker->word(),
-            'code' => $this->faker->numberBetween(-10000, 10000),
+            'code' => $code,
         ];
     }
 }
