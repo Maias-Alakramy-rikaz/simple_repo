@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\ProductRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class ProductCrudController
@@ -31,6 +32,16 @@ class ProductCrudController extends CrudController
         CRUD::setEntityNameStrings('المادة', 'المواد');
 
         CRUD::addButtonFromView('line', 'toggle_active', 'toggle_active', 'beggining');
+        Widget::add([
+            'type'    => 'div',
+            'class'   => 'row',
+            'content' => [ // widgets
+                [
+                    'type' => 'view',
+                    'view' => 'vendor.backpack.ui.widgets.list_inactive',
+                ],
+            ]
+        ])->to('before_content');
     }
 
     public function toggleActive($id)
