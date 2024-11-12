@@ -25,8 +25,8 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:table,products,'.$this->id],
-            'code' => ['required','string','regex:/^P\d{5}$/','unique:table,products,'.$this->id],
+            'name' => ['required','string','max:255','unique:products,name,'.$this->id],
+            'code' => ['required','string','regex:/^P\d{5}$/','unique:products,code,'.$this->id],
             'min_quan' => ['required','numeric','min:1'],
             'price' => ['required','numeric','min:1'],
             'activated' => ['required','boolean'],

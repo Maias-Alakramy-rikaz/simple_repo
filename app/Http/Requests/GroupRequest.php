@@ -25,8 +25,8 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:table,groups,'.$this->id],
-            'code' => ['required','string','regex:/^G\d{5}$/','unique:table,groups,'.$this->id],
+            'name' => ['required','string','max:255','unique:groups,name,'.$this->id],
+            'code' => ['required','string','regex:/^G\d{5}$/','unique:groups,code'.$this->id],
         ];
     }
 
