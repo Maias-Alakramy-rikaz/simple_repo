@@ -40,6 +40,10 @@ class ProductCrudController extends CrudController
                     'type' => 'view',
                     'view' => 'vendor.backpack.ui.widgets.list_inactive',
                 ],
+                [
+                    'type' => 'view',
+                    'view' => 'vendor.backpack.ui.widgets.list_with_imports_and_exports',
+                ],
             ]
         ])->to('before_content');
     }
