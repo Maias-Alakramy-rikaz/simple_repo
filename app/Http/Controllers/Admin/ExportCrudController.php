@@ -29,6 +29,10 @@ class ExportCrudController extends CrudController
         CRUD::setModel(\App\Models\Export::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/export');
         CRUD::setEntityNameStrings('صادر', 'صادرات');
+
+        if (!backpack_user()->hasPermissionTo('manage-export')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
     }
 
     /**

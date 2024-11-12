@@ -22,12 +22,24 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+        ]);
 
         $admin = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => 'Admin',
         ]);
+        $admin->assignRole('Admin');
+
+        $notAdmin = User::factory()->create([
+            'name' => 'NotAdmin',
+            'email' => 'notadmin@example.com',
+            'password' => 'Admin',
+        ]);
+        $notAdmin->assignRole('notAdmin');
+
 
         Group::factory(3)->create();
         Product::factory(5)->create();

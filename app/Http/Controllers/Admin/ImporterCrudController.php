@@ -31,14 +31,22 @@ class ImporterCrudController extends CrudController
         CRUD::setEntityNameStrings('مورد', 'موردون');
 
         CRUD::addButtonFromView('line', 'toggle_block', 'toggle_block', 'beggining');
+
+        if (!backpack_user()->hasPermissionTo('manage-importer')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
     }
 
     public function toggleBlock($id)
     {
-        $importer = \App\Models\Importer::findOrFail($id);
+        if (!backpack_user()->hasPermissionTo('block')) {
+            \Alert::error('لا يمكنك القيام بذلك')->flash();
+            return redirect()->back();
+        }
+        $importer = $this->crud->model->findOrFail($id);
         $importer->blocked = !$importer->blocked;
         $importer->save();
-
+        \Alert::success('تم التغيير بنجاح')->flash();
         return redirect()->back();
     }
 

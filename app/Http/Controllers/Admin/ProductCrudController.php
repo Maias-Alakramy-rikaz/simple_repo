@@ -65,6 +65,10 @@ class ProductCrudController extends CrudController
                 ],
             ]
         ])->to('before_content');
+
+        if (!backpack_user()->hasPermissionTo('manage-product')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
     }
 
     public function toggleActive($id)
@@ -88,7 +92,7 @@ class ProductCrudController extends CrudController
         CRUD::modifyColumn('name',['label'=>'الاسم']);
         CRUD::modifyColumn('code', ['label'=>'الرمز']);
         CRUD::modifyColumn('min_quan', ['label'=>'الحد الأدنى']);
-        CRUD::column(['name'=>'current_quantity','label'=>'الكمية الحالية','suffix'=>' قطعة']);
+        CRUD::column(['name'=>'current_quantity','type'=>'number','label'=>'الكمية الحالية','suffix'=>' قطعة']);
         CRUD::modifyColumn('price', ['label'=>'السعر']);
         CRUD::modifyColumn('activated',['label'=>'مفعّلة','options' => [ 0 => 'غير فعّال', 1 => 'مفعّل' ]]);
         CRUD::removeColumn('group_id');

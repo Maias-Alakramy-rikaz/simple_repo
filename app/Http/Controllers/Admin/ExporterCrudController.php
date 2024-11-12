@@ -31,14 +31,22 @@ class ExporterCrudController extends CrudController
         CRUD::setEntityNameStrings('زبون', 'زبائن');
     
         CRUD::addButtonFromView('line', 'toggle_block', 'toggle_block', 'beggining');
+
+        if (!backpack_user()->hasPermissionTo('manage-exporter')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
     }
 
     public function toggleBlock($id)
     {
-        $exporter = \App\Models\Exporter::findOrFail($id);
+        if (!backpack_user()->hasPermissionTo('block')) {
+            \Alert::error('لا يمكنك القيام بذلك')->flash();
+            return redirect()->back();
+        }
+        $exporter = $this->crud->model->findOrFail($id);
         $exporter->blocked = !$exporter->blocked;
         $exporter->save();
-
+        \Alert::success('تم التغيير بنجاح')->flash();
         return redirect()->back();
     }
 

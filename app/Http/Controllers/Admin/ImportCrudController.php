@@ -29,8 +29,12 @@ class ImportCrudController extends CrudController
         CRUD::setModel(\App\Models\Import::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/import');
         CRUD::setEntityNameStrings('وارد', 'واردات');
-    }
 
+        if (!backpack_user()->hasPermissionTo('manage-import')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
+    }
+    
     /**
      * Define what happens when the List operation is loaded.
      * 

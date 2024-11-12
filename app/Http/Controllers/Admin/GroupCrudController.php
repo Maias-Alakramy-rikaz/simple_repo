@@ -29,6 +29,10 @@ class GroupCrudController extends CrudController
         CRUD::setModel(\App\Models\Group::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/group');
         CRUD::setEntityNameStrings('مجموعة', 'مجموعات');
+
+        if (!backpack_user()->hasPermissionTo('manage-group')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
     }
 
     /**
