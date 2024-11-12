@@ -66,4 +66,13 @@ class Product extends Model
 
         $this->save();
     }
+
+    public function calculateCurrentQuantityForFactory(){
+        $totalImports = $this->imports()->sum('quantity');
+        $totalExports = $this->exports()->sum('quantity');
+
+        $this->current_quantity = $totalImports - $totalExports;
+
+        $this->save();
+    }
 }

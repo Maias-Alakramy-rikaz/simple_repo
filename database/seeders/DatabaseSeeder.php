@@ -51,5 +51,8 @@ class DatabaseSeeder extends Seeder
         Export::factory(10)->create();
         Import::factory(10)->create();
         
+        foreach (Product::all() as $product) {
+            $product->calculateCurrentQuantityForFactory();
+        }
     }
 }
