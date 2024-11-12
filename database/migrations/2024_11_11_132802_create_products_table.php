@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('min_quan');
             $table->integer('price');
             $table->boolean('activated')->default(true);
+            $table->integer('current_quantity')->default(0);
             $table->foreignId('group_id')->constrained('Groups');
             $table->timestamps();
         });

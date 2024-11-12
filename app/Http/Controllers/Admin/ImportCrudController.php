@@ -14,7 +14,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ImportCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -87,5 +87,25 @@ class ImportCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function store(ImportRequest $request)
+    {
+        if (!backpack_user()->hasPermissionTo('manage-import')) {
+            abort(403, 'غير مخول بالدخول.');
+        }
+            
+        \DB::beginTransaction();
+        try {
+            $product = \App\Models\Product::find($request->input('product_id'));
+            $product->updateCurrentQuantity(false,$request->input('quantity'));
+            $response = $this->traitStore();
+            \DB::commit();
+            return $response;
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            \Alert::error('حدث خطأ')->flash();
+        }
+        return redirect()->back();
     }
 }

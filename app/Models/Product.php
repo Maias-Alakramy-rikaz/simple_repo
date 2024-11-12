@@ -57,11 +57,13 @@ class Product extends Model
     {
         return $this->hasMany(Import::class);
     }
+    
+    public function updateCurrentQuantity($is_export,$quantity){
+        if($is_export)
+            $this->current_quantity = $this->current_quantity - $quantity;
+        else
+            $this->current_quantity = $this->current_quantity + $quantity;
 
-    public function getCurrentQuantityAttribute()
-    {
-        $totalImports = $this->imports()->sum('quantity');
-        $totalExports = $this->exports()->sum('quantity');
-        return $totalImports - $totalExports;
+        $this->save();
     }
 }
