@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Product;
 
 class ExportRequest extends FormRequest
 {
@@ -26,7 +27,12 @@ class ExportRequest extends FormRequest
     {
         return [
             'product_id' => 'required|numeric|exists:products,id',
-            'quantity' => 'required|numeric|min:1',
+            'quantity' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
+                $product = Product::find($this->input('product_id'));
+                if ($product && $value > $product->current_quantity) {
+                    $fail('لا توجد هذه الكمية في المستودع');
+                }
+            }],
             'exp_date' => 'required|date',
             'exporter_id' => 'required|numeric|exists:exporters,id'
         ];
