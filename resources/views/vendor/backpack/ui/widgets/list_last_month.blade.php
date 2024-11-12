@@ -22,8 +22,10 @@
 	  <div class="card-header">المواد ومجموع صادراتها ووارداتها في الشهر الأخير</div>
 	  <div class="card-body">
           <ul>
+            @php $showed=False; @endphp
             @foreach($Products as $product)
                 @if(!($product->total_exports==0 && $product->total_imports==0))
+                    @php $showed=True; @endphp
                     <li>{{$product->name.":"}}
                         <ul>
                         <li>{{"كمية الصادرات: ".$product->total_exports}}</li>
@@ -32,6 +34,9 @@
                     </li>
                 @endif
             @endforeach
+            @if(!$showed)
+                <p>لا يوجد مواد.</p>
+            @endif
         </ul>
 
 	  </div>
