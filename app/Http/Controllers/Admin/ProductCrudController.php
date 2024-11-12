@@ -38,11 +38,11 @@ class ProductCrudController extends CrudController
             'content' => [ // widgets
                 [
                     'type' => 'view',
-                    'view' => 'vendor.backpack.ui.widgets.list_inactive',
+                    'view' => 'vendor.backpack.ui.widgets.list_with_imports_and_exports',
                 ],
                 [
-                    'type' => 'view',
-                    'view' => 'vendor.backpack.ui.widgets.list_with_imports_and_exports',
+                    'type'       => 'chart',
+                    'controller' => \App\Http\Controllers\Admin\Charts\ProductCurrentQuantityChartController::class,
                 ],
                 [
                     'type' => 'view',
@@ -62,6 +62,10 @@ class ProductCrudController extends CrudController
                 [
                     'type' => 'view',
                     'view' => 'vendor.backpack.ui.widgets.list_out_of_stock',
+                ],
+                [
+                    'type' => 'view',
+                    'view' => 'vendor.backpack.ui.widgets.list_inactive',
                 ],
             ]
         ])->to('before_content');

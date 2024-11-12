@@ -27,6 +27,7 @@ Route::group([
     Route::get('product/{id}/toggle-active', 'App\Http\Controllers\Admin\ProductCrudController@toggleActive');
     Route::get('exporter/{id}/toggle-block', 'App\Http\Controllers\Admin\ExporterCrudController@toggleBlock');
     Route::get('importer/{id}/toggle-block', 'App\Http\Controllers\Admin\ImporterCrudController@toggleBlock');
+    Route::get('charts/product-current-quantity', 'Charts\ProductCurrentQuantityChartController@response')->name('charts.product-current-quantity.index');
 }); // this should be the absolute last line of this file
 
 /**
