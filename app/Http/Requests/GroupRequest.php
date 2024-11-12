@@ -26,7 +26,7 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => ['required','string','max:255','unique:groups,name,'.$this->id],
-            'code' => ['required','string','regex:/^G\d{5}$/','unique:groups,code'.$this->id],
+            'code' => ['required','string','regex:/^G\d{5}$/','unique:groups,code,'.$this->id],
         ];
     }
 
