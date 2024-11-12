@@ -29,6 +29,17 @@ class ImporterCrudController extends CrudController
         CRUD::setModel(\App\Models\Importer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/importer');
         CRUD::setEntityNameStrings('مورد', 'موردون');
+
+        CRUD::addButtonFromView('line', 'toggle_block', 'toggle_block', 'beggining');
+    }
+
+    public function toggleBlock($id)
+    {
+        $importer = \App\Models\Importer::findOrFail($id);
+        $importer->blocked = !$importer->blocked;
+        $importer->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -43,6 +54,7 @@ class ImporterCrudController extends CrudController
         CRUD::column(['name'=> 'full_name', 'label'=>'الاسم الكامل']);
         CRUD::column(['name'=> 'phone_number', 'label'=>'رقم الهاتف']);
         CRUD::column(['name'=> 'email', 'label'=>'البريد الإلكتروني']);
+        CRUD::column(['name'=> 'blocked','type'=>'boolean','label'=>'التعامل','options' => [ 0 => 'مسموح', 1 => 'ممنوع' ]]);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -64,6 +76,8 @@ class ImporterCrudController extends CrudController
         CRUD::modifyField('last_name', ['label'=>'الكنية']);
         CRUD::modifyField('phone_number', ['label'=>'رقم الهانف']); 
         CRUD::modifyField('email', ['label'=>'الإيميل']); 
+        CRUD::modifyField('bloked',['label'=>'منع التعامل','type'=>'hidden','value'=>false]);
+
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

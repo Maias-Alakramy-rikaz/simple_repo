@@ -28,7 +28,8 @@ class ExporterRequest extends FormRequest
             'first_name' => ['required','string','max:255',Rule::unique('exporters')->where('first_name',$this->first_name)->where('last_name',$this->last_name)->ignore($this->id)], 
             'last_name' => ['required','string','max:255',Rule::unique('exporters')->where('first_name',$this->first_name)->where('last_name',$this->last_name)->ignore($this->id)],
             'phone_number'=> ['required','string','regex:/^\+?[1-9]\d{1,14}$/','unique:Exporters,phone_number,'.$this->id],
-            'email' => ['required','email','unique:Exporters,email,'.$this->id]
+            'email' => ['required','email','unique:Exporters,email,'.$this->id],
+            'blocked' => ['required','boolean'],
         ];
     }
 
@@ -42,7 +43,7 @@ class ExporterRequest extends FormRequest
         return [
             "first_name.unique" => "هذا الزبون (اسم وكنية) موجود مسبقا",
             "last_name.unique" => "هذا الزبون (اسم وكنية) موجود مسبقا",
-            'phone_number.regex' => 'الرجاء إدخال الرقم بالترميز العالمي E165'
+            'phone_number.regex' => 'الرجاء إدخال الرقم بالترميز العالمي E165',
         ];
     }
 

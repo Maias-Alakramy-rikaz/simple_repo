@@ -25,6 +25,8 @@ Route::group([
     Route::crud('product-image', 'ProductImageCrudController');
     Route::crud('user', 'UserCrudController');
     Route::get('product/{id}/toggle-active', 'App\Http\Controllers\Admin\ProductCrudController@toggleActive');
+    Route::get('exporter/{id}/toggle-block', 'App\Http\Controllers\Admin\ExporterCrudController@toggleBlock');
+    Route::get('importer/{id}/toggle-block', 'App\Http\Controllers\Admin\ImporterCrudController@toggleBlock');
 }); // this should be the absolute last line of this file
 
 /**

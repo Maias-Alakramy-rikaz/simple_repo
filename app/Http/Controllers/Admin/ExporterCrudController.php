@@ -29,6 +29,17 @@ class ExporterCrudController extends CrudController
         CRUD::setModel(\App\Models\Exporter::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/exporter');
         CRUD::setEntityNameStrings('زبون', 'زبائن');
+    
+        CRUD::addButtonFromView('line', 'toggle_block', 'toggle_block', 'beggining');
+    }
+
+    public function toggleBlock($id)
+    {
+        $exporter = \App\Models\Exporter::findOrFail($id);
+        $exporter->blocked = !$exporter->blocked;
+        $exporter->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -43,6 +54,8 @@ class ExporterCrudController extends CrudController
         CRUD::column(['name'=> 'full_name', 'label'=>'الاسم الكامل']);
         CRUD::column(['name'=> 'phone_number', 'label'=>'رقم الهاتف']);
         CRUD::column(['name'=> 'email', 'label'=>'البريد الإلكتروني']);
+        CRUD::column(['name'=> 'blocked','type'=>'boolean','label'=>'التعامل','options' => [ 0 => 'مسموح', 1 => 'ممنوع' ]]);
+
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
@@ -63,6 +76,8 @@ class ExporterCrudController extends CrudController
         CRUD::modifyField('last_name', ['label'=>'الكنية']);
         CRUD::modifyField('phone_number', ['label'=>'رقم الهانف']); 
         CRUD::modifyField('email', ['label'=>'الإيميل']); 
+        CRUD::modifyField('bloked',['label'=>'منع التعامل','type'=>'hidden','value'=>false]);
+
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

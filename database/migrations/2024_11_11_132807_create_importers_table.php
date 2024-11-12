@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone_number', 15)->unique();
             $table->string('email')->unique();
+            $table->boolean('blocked')->default(false);
             $table->timestamps();
         });
 
