@@ -6,6 +6,6 @@
 <x-backpack::menu-item title="موردين" icon="la la-user" :link="backpack_url('exporter')" />
 <x-backpack::menu-item title="مجموعات" icon="la la-tag" :link="backpack_url('group')" />
 <x-backpack::menu-item title="منتجات" icon="la la-tag" :link="backpack_url('product')" />
-<x-backpack::menu-item title="صادرات" icon="la la-tag" :link="backpack_url('import')" />
-<x-backpack::menu-item title="واردات" icon="la la-tag" :link="backpack_url('export')" />
+<x-backpack::menu-item title="واردات" icon="la la-tag" :link="backpack_url('import')" />
+<x-backpack::menu-item title="صادرات" icon="la la-tag" :link="backpack_url('export')" />
 {{-- <x-backpack::menu-item title=" ProductImages" icon="la la-tag" :link="backpack_url('product-image')" /> #TODO --}}
