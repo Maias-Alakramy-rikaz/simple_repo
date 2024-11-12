@@ -29,6 +29,17 @@ class ProductCrudController extends CrudController
         CRUD::setModel(\App\Models\Product::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/product');
         CRUD::setEntityNameStrings('المادة', 'المواد');
+
+        CRUD::addButtonFromView('line', 'toggle_active', 'toggle_active', 'beggining');
+    }
+
+    public function toggleActive($id)
+    {
+        $product = \App\Models\Product::findOrFail($id);
+        $product->activated = !$product->activated;
+        $product->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -46,7 +57,7 @@ class ProductCrudController extends CrudController
         CRUD::modifyColumn('price', ['label'=>'السعر']);
         CRUD::modifyColumn('activated',['label'=>'مفعّلة']);
         CRUD::removeColumn('group_id');
-        CRUD::column(['name'=>'Group','type'=>'select','model'=>'App\Models\Exporter','label'=>'الزبون','attribute'=>'full_name']);
+        CRUD::column(['name'=>'group','type'=>'select','model'=>'App\Models\Group','label'=>'المجموعة','attribute' => 'code']);
         
         /**
          * Columns can be defined using the fluent syntax:
