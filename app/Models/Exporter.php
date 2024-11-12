@@ -6,11 +6,11 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Sanctum\HasApiTokens;
 
 class Exporter extends Model
 {
-    use CrudTrait;
-    use HasFactory;
+    use CrudTrait,HasFactory,HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
