@@ -26,7 +26,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'code' => $code,
-            'min_quan' => $this->faker->numberBetween(1, 10000),
+            'min_quan' => $this->faker->numberBetween(1, 50),
             'price' => $this->faker->numberBetween(500, 1000),
             'activated' => $this->faker->boolean(),
             'group_id' => Group::inRandomOrder()->first(),

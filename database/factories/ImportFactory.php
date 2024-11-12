@@ -24,7 +24,7 @@ class ImportFactory extends Factory
     {
         return [
             'product_id' => Product::inRandomOrder()->first(),
-            'quantity' => $this->faker->numberBetween(1, 10000),
+            'quantity' => $this->faker->numberBetween(20, 100),
             'imp_date' => $this->faker->date(),
             'importer_id' => Importer::inRandomOrder()->first(),
         ];

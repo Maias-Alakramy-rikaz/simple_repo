@@ -24,7 +24,7 @@ class ExportFactory extends Factory
     {
         return [
             'product_id' => Product::inRandomOrder()->first(),
-            'quantity' => $this->faker->numberBetween(1, 10000),
+            'quantity' => $this->faker->numberBetween(1, 10),
             'exp_date' => $this->faker->date(),
             'exporter_id' => Exporter::inRandomOrder()->first(),
         ];
