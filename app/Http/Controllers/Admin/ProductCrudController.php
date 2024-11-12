@@ -59,6 +59,10 @@ class ProductCrudController extends CrudController
                     'type' => 'view',
                     'view' => 'vendor.backpack.ui.widgets.list_last_month',
                 ],
+                [
+                    'type' => 'view',
+                    'view' => 'vendor.backpack.ui.widgets.list_out_of_stock',
+                ],
             ]
         ])->to('before_content');
     }
