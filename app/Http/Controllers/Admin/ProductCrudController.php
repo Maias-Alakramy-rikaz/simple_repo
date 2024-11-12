@@ -71,7 +71,7 @@ class ProductCrudController extends CrudController
         CRUD::modifyColumn('min_quan', ['label'=>'الحد الأدنى']);
         CRUD::column(['name'=>'current_quantity','label'=>'الكمية الحالية']);
         CRUD::modifyColumn('price', ['label'=>'السعر']);
-        CRUD::modifyColumn('activated',['label'=>'مفعّلة']);
+        CRUD::modifyColumn('activated',['label'=>'مفعّلة','options' => [ 0 => 'غير فعّال', 1 => 'مفعّل' ]]);
         CRUD::removeColumn('group_id');
         CRUD::column(['name'=>'group','type'=>'select','model'=>'App\Models\Group','label'=>'المجموعة','attribute' => 'code']);
         
