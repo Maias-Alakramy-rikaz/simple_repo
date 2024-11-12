@@ -47,4 +47,21 @@ class Product extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function exports(): HasMany
+    {
+        return $this->hasMany(Export::class);
+    }
+
+    public function imports(): HasMany
+    {
+        return $this->hasMany(Import::class);
+    }
+
+    public function getCurrentQuantityAttribute()
+    {
+        $totalImports = $this->imports()->sum('quantity');
+        $totalExports = $this->exports()->sum('quantity');
+        return $totalImports - $totalExports;
+    }
 }
