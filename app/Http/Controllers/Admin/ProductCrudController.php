@@ -50,6 +50,17 @@ class ProductCrudController extends CrudController
                 ],
             ]
         ])->to('before_content');
+
+        Widget::add([
+            'type'    => 'div',
+            'class'   => 'row',
+            'content' => [ // widgets
+                [
+                    'type' => 'view',
+                    'view' => 'vendor.backpack.ui.widgets.list_last_month',
+                ],
+            ]
+        ])->to('before_content');
     }
 
     public function toggleActive($id)
