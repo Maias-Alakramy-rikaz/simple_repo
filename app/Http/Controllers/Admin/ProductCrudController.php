@@ -15,7 +15,7 @@ use Backpack\CRUD\app\Library\Widget;
 class ProductCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -93,6 +93,15 @@ class ProductCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column([
+            'name'      => 'image', // The db column name
+            'label'     => 'صورة المنتج', // Table column heading
+            'type'      => 'image',
+            'prefix' => 'storage/',
+            // optional width/height if 25px is not ok with you
+            // 'height' => '30px',
+            // 'width'  => '30px',
+        ]);
         CRUD::modifyColumn('name',['label'=>'الاسم']);
         CRUD::modifyColumn('code', ['label'=>'الرمز']);
         CRUD::modifyColumn('min_quan', ['label'=>'الحد الأدنى']);
@@ -101,7 +110,7 @@ class ProductCrudController extends CrudController
         CRUD::modifyColumn('activated',['label'=>'مفعّلة','options' => [ 0 => 'غير فعّال', 1 => 'مفعّل' ]]);
         CRUD::removeColumn('group_id');
         CRUD::column(['name'=>'group','type'=>'select','model'=>'App\Models\Group','label'=>'المجموعة','attribute' => 'code']);
-        
+
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
@@ -124,6 +133,17 @@ class ProductCrudController extends CrudController
         CRUD::modifyField('price', ['label'=>'السعر']);
         CRUD::modifyField('activated',['label'=>'مفعّلة','type'=>'hidden','value'=>true]);
         CRUD::modifyField('group_id',['type'=>'select','model'=>'App\Models\Group','label'=>'المجموعة']);
+        CRUD::field([
+            'label' => 'Profile Image',
+            'name' => 'image',
+            'type' => 'image',
+            'crop' => true, // set to true to allow cropping, false to disable
+            'withFiles' => [
+                'disk' => 'public', // the disk where file will be stored
+                'path' => 'ProductImages',
+            ]
+        ]);
+        
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
@@ -139,5 +159,10 @@ class ProductCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupDeleteOperation()
+    {
+        CRUD::field('image')->type('upload')->withFiles();
     }
 }

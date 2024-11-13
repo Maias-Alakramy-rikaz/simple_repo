@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('price');
             $table->boolean('activated')->default(true);
             $table->integer('current_quantity')->default(0);
+            $table->string('image')->nullable();
             $table->foreignId('group_id')->constrained('Groups');
             $table->timestamps();
         });

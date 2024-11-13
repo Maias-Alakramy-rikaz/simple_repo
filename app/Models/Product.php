@@ -38,10 +38,6 @@ class Product extends Model
         'group_id' => 'integer',
     ];
 
-    public function productImages(): HasMany
-    {
-        return $this->hasMany(ProductImage::class);
-    }
 
     public function group(): BelongsTo
     {
