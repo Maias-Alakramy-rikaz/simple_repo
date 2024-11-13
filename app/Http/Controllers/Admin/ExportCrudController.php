@@ -70,8 +70,18 @@ class ExportCrudController extends CrudController
         CRUD::setFromDb(); // set fields from db columns.
         CRUD::modifyField('product_id',['type'=>'select','model'=>'App\Models\Product','label'=>'المادة']);
         CRUD::modifyField('quantity', ['label'=>'الكمية','suffix'=>' قطعة']);
-        CRUD::modifyField('exp_date', ['label'=>'التاريخ']);
-        CRUD::modifyField('exporter_id',['type'=>'select','model'=>'App\Models\Exporter','label'=>'الزبون','attribute'=>'full_name']);
+        CRUD::modifyField('exp_date',[   // DateTime
+            'type'  => 'date_picker',
+            'label' => 'التاريخ',
+         
+            // optional:
+            'datetime_picker_options' => [
+               'todayBtn' => 'linked',
+               'format'   => 'dd-mm-yyyy',
+               'language' => 'ar'
+            ],
+        ]);
+            CRUD::modifyField('exporter_id',['type'=>'select','model'=>'App\Models\Exporter','label'=>'الزبون','attribute'=>'full_name']);   
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
