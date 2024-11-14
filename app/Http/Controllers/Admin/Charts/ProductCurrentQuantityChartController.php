@@ -37,7 +37,7 @@ class ProductCurrentQuantityChartController extends ChartController
     {
         $Products = \App\Models\Product::all()->sortByDesc('current_quantity')->pluck('current_quantity');
         
-        $this->chart->dataset('Products current quantity', 'bar', $Products)
+        $this->chart->dataset('الكميات الحالية من المنتجات', 'bar', $Products)
             ->color('rgba(205, 32, 31, 1)')
             ->backgroundColor('rgba(205, 32, 31, 0.4)');
     }
