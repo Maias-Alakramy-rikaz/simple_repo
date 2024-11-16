@@ -6,6 +6,7 @@ use App\Http\Requests\ExporterRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Gate;
+use App\Notifications\ExporterBlocked;
 
 /**
  * Class ExporterCrudController
@@ -48,6 +49,7 @@ class ExporterCrudController extends CrudController
         $exporter->blocked = !$exporter->blocked;
         $exporter->save();
         \Alert::success('تم التغيير بنجاح')->flash();
+        backpack_user()->notify(new ExporterBlocked($exporter));
         return redirect()->back();
     }
 

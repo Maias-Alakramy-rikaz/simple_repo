@@ -15,6 +15,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        foreach(backpack_user()->unreadNotifications as $notification) {
+            \Alert::info(' الزبون'.(($notification->data)['exporter_name']).': '.(
+                ($notification->data)['blocked']?'ممنوع التعامل معه':'مسموح التعامل معه'))->flash();
+            $notification->markAsRead();
+        };
         Widget::add([
             'type'    => 'div',
             'class'   => 'row',
