@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Gate;
 use App\Notifications\ExporterBlocked;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
  * Class ExporterCrudController
@@ -20,6 +21,8 @@ class ExporterCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+    use AuthorizesRequests;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
